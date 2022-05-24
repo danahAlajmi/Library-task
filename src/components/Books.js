@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import BookItem from './BookItem';
-import booksStore from '../stores/booksStore';
+import React, { useState } from "react";
+import BookItem from "./BookItem";
+import booksStore from "../stores/booksStore";
 
-import { observer } from 'mobx-react';
-import CreateBookModal from './createBookModal';
+import { observer } from "mobx-react";
+import CreateBookModal from "./createBookModal";
 
 function Books() {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const [genre, setGenre] = useState('');
+  const [query, setQuery] = useState("");
+  const [genre, setGenre] = useState("");
   const genres = [
-    'Action',
-    'Fantasy',
-    'Sci-Fi',
-    'Romance',
-    'Fiction',
-    'Self-Help',
-    'Thriller',
-    'Suspense',
-    ' Biography',
-    'Business',
-    'Entrepreneurship',
-    'Crime',
-    'Mystery',
+    "Action",
+    "Fantasy",
+    "Sci-Fi",
+    "Romance",
+    "Fiction",
+    "Self-Help",
+    "Thriller",
+    "Suspense",
+    " Biography",
+    "Business",
+    "Entrepreneurship",
+    "Crime",
+    "Mystery",
   ];
   const closeModal = () => setIsOpen(false);
 
@@ -30,7 +30,7 @@ function Books() {
   let bookList = booksStore.books.filter((book) =>
     book.title.toLowerCase().includes(query.toLowerCase())
   );
-  if (genre != '') {
+  if (genre != "") {
     bookList = bookList.filter((book) => book.genres.includes(genre));
   }
   bookList = bookList.map((book) => <BookItem book={book} key={book._id} />);
@@ -66,8 +66,10 @@ function Books() {
               return <option value={genre}>{genre}</option>;
             })}
           </select>
-          <button className="add-btn ">
-            <span onClick={openModal}>Add book</span>
+          <button className="add-btn">
+            <span className="add-btn" onClick={openModal}>
+              Add book
+            </span>
             <CreateBookModal isOpen={isOpen} closeModal={closeModal} />
           </button>
         </div>
@@ -78,7 +80,7 @@ function Books() {
         <br />
       </div>
       <div className="body">
-        {' '}
+        {" "}
         <div className="grid-container">{bookList}</div>
       </div>
     </div>

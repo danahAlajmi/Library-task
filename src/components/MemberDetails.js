@@ -25,12 +25,24 @@ function MemberDetails() {
   }
   return (
     <div className="body">
-      <div className="textt">
+      <div className="textt detail-member">
         {" "}
         <br />
-        <h3>{`Member: ${member.firstName} ${member.lastName}`}</h3>
-        <h3>{`Membership: ${member.membership}`}</h3>
-        <h3>{`Currently Borrowed Books: ${cbb}`}</h3>
+        <h3>{`Member: `}</h3>
+        <h2>
+          {member.firstName} {member.lastName}
+        </h2>
+        <h3>{`Membership: `}</h3> <h2>{member.membership}</h2>
+        <h3>{`Currently Borrowed Books: `} </h3>
+        <div>
+          {cbb.map((element) => (
+            <h2>
+              <ul>
+                <li>{element}</li>
+              </ul>
+            </h2>
+          ))}
+        </div>
       </div>
     </div>
   );

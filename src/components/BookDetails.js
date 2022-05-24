@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import booksStore from '../stores/booksStore';
-import membersStore from '../stores/membersStore';
-import '../App.css';
-import { observer } from 'mobx-react';
+import React, { useState } from "react";
+import booksStore from "../stores/booksStore";
+import membersStore from "../stores/membersStore";
+import "../App.css";
+import { observer } from "mobx-react";
 
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from "react-router-dom";
 
 function BookDetails() {
-  let returnBtnClass = 'return-btn';
-  let borrowBtnClass = 'borrow-btn';
-  let selectClass = 'select';
-  let memberText = 'show';
+  let returnBtnClass = "return-btn";
+  let borrowBtnClass = "borrow-btn";
+  let selectClass = "select";
+  let memberText = "show";
 
-  const [member, setMember] = useState('');
+  const [member, setMember] = useState("");
   // booksStore.fetchBooks();
   const { bookSlug } = useParams();
   // console.log('bookslug', bookSlug);
@@ -31,8 +31,8 @@ function BookDetails() {
     return <h1>loading...</h1>;
   } else {
     let bookCurrentlyBorrowedByMemberID = 0;
-    let bookCurrentlyBorrowedByMemberFirstName = 'No';
-    let bookCurrentlyBorrowedByMemberLastName = 'One';
+    let bookCurrentlyBorrowedByMemberFirstName = "No";
+    let bookCurrentlyBorrowedByMemberLastName = "One";
     if (book.available === false) {
       bookCurrentlyBorrowedByMemberID =
         book.borrowedBy[book.borrowedBy.length - 1];
@@ -50,21 +50,27 @@ function BookDetails() {
     });
 
     if (book.available === true) {
-      returnBtnClass = 'hide';
+      returnBtnClass = "hide";
     }
     if (book.available === false) {
-      borrowBtnClass = 'hide';
-      selectClass = 'hide';
-      memberText = 'hide';
+      borrowBtnClass = "hide";
+      selectClass = "hide";
+      memberText = "hide";
     }
     return (
-      <div className="textt body">
-        <h3>{`Author: ${book.author} `}</h3>
-        <h3>{`title: ${book.title}`}</h3>
-        <h3>{`Genres: ${book.genres}`}</h3>
-        <h3>{`Currently Borrowed By: ${bookCurrentlyBorrowedByMemberFirstName} ${bookCurrentlyBorrowedByMemberLastName}`}</h3>
-        <br />
-        <img className="bookDetails-image" src={book.image} />
+      <div className="body">
+        <div className="textt detail-book">
+          <h3>{`Author: `} </h3> <h2>{book.author}</h2>
+          <h3>{`title: `}</h3> <h2>{book.title}</h2>
+          <h3>{`Genres: `} </h3> <h2>{book.genres}</h2>
+          <h3>{`Currently Borrowed By: `} </h3>{" "}
+          <h2>
+            {bookCurrentlyBorrowedByMemberFirstName}{" "}
+            {bookCurrentlyBorrowedByMemberLastName}{" "}
+          </h2>
+          <img className="bookDetails-image" src={book.image} />
+        </div>
+
         <div className="borrow-return">
           <div className="borrow-member">
             <div>
@@ -92,7 +98,7 @@ function BookDetails() {
               >
                 Borrow
               </button>
-              <br />
+
               <button
                 className={returnBtnClass}
                 onClick={(e) => handleSubmit(e, booksStore.returnBook(book))}
